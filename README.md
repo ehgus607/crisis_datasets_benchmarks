@@ -21,8 +21,10 @@ CUDA_VISIBLE_DEVICES=1 python bin/text_cnn_pipeline_unimodal.py -i data/all_even
 
 ## Note
 1. `text_cnn_pipline_unimodal.py` will occur segment failt. but never mind. all code is executed.
-2. You may require `pathlib`. then try `pip3 install pathlib`
+2. You may need `pathlib`. then try `pip3 install pathlib`
 3. If you check an error message, please check `log/text_info_cnn.txt`
+4. You do not need dataset. I already upload training dataset `data`
+5. The model file `crisisNLP_word_vector.bin` from https://crisisnlp.qcri.org/data/lrec2016/crisisNLP_word2vec_model_v1.2.zip is required. please put `crisisNLP_word_vector.bin` to `bin`
 
 
 
