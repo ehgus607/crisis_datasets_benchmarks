@@ -16,7 +16,7 @@ pip3 install -r requirements
 CUDA_VISIBLE_DEVICES=1 python bin/text_cnn_pipeline_unimodal.py -i data/all_events_en/crisis_consolidated_informativeness_filtered_lang_en_train.tsv \
 -v data/all_events_en/crisis_consolidated_informativeness_filtered_lang_en_dev.tsv -t data/all_events_en/crisis_consolidated_informativeness_filtered_lang_en_test.tsv \
 --log_file checkpoint_log/informativeness_cnn.txt --w2v_checkpoint w2v_models/data_w2v_info_cnn.model -m models/informativeness_cnn.model -l labeled/informativeness_labeled_cnn.tsv \
--o results/informativeness_results_cnn.txt >&log/text_info_cnn.txt
+-o results/informativeness_results_cnn.txt >&log/text_info_cnn.txt --nb_epoch=100
 ```
 
 ## Note
