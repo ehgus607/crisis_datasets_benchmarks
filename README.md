@@ -19,6 +19,10 @@ CUDA_VISIBLE_DEVICES=1 python bin/text_cnn_pipeline_unimodal.py -i data/all_even
 -o results/informativeness_results_cnn.txt >&log/text_info_cnn.txt
 ```
 
+## Note
+1. `text_cnn_pipline_unimodal.py` will occur segment failt. but never mind. all code is executed.
+2. You may require `pathlib`. then try `pip3 install pathlib`
+3. If you check an error message, please check `log/text_info_cnn.txt`
 
 
 
