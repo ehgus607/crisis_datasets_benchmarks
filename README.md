@@ -27,7 +27,7 @@ CUDA_VISIBLE_DEVICES=1 python bin/text_cnn_pipeline_unimodal.py -i data/all_even
 5. The model file `crisisNLP_word_vector.bin` from https://crisisnlp.qcri.org/data/lrec2016/crisisNLP_word2vec_model_v1.2.zip is required. please put `crisisNLP_word_vector.bin` to `bin`
 6. Make folder `checkpoint_log`, `results`, `models`, `log`, `w2v_models` in this repo `crisis_datasets_benchmarks`.
 7. You can control epoch number by `--nb_epoch=<dumber>` flag.
-
+8. please modify line 152 in `text_cnn_pipline_unimodal.py` for your path (my path is `"/home/hash/crisis_datasets_benchmarks/bin/crisisNLP_word_vector.bin"`)
 
 
 
