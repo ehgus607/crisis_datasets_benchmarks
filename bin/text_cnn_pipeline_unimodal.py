@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 """
@@ -24,7 +23,7 @@ import os, errno
 import warnings
 import datetime
 import optparse
-import cPickle as pickle
+import pickle
 from time import time
 from datetime import datetime
 import re
@@ -150,8 +149,8 @@ if __name__ == '__main__':
     if (options.w2v_checkpoint and file_exist(options.w2v_checkpoint)):
         options.emb_matrix = pickle.load(open(options.w2v_checkpoint, "rb"))
     else:
-        model_file = "/export/home/fialam/w2v_models/crisis_word_vector.txt"
-        emb_model = KeyedVectors.load_word2vec_format(model_file, binary=False)
+        model_file = "/home/hash/crisis_datasets_benchmarks/bin/crisisNLP_word_vector.bin"
+        emb_model = KeyedVectors.load_word2vec_format(model_file, binary=True)
         embedding_matrix = data_process.prepare_embedding(word_index, emb_model, options.vocab_size,
                                                           options.embedding_dim)
         print("Embedding size: " + str(embedding_matrix.shape))
@@ -166,15 +165,15 @@ if __name__ == '__main__':
 
 
 
-    callback = callbacks.EarlyStopping(monitor='val_acc', patience=options.patience, verbose=0, mode='max')
+    callback = callbacks.EarlyStopping(monitor='val_accuracy', patience=options.patience, verbose=0, mode='max')
     tensorboard = TensorBoard(log_dir=options.checkpoint_log + "/{}".format(time()), histogram_freq=0, write_graph=True,
                               write_images=True, embeddings_freq=0, embeddings_layer_names="Embedding layer",
                               embeddings_metadata=None)
     csv_logger = CSVLogger(log_file, append=False, separator='\t')
 
-    learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc', patience=options.patience_lr, verbose=1, factor=0.01,
+    learning_rate_reduction = ReduceLROnPlateau(monitor='val_accuracy', patience=options.patience_lr, verbose=1, factor=0.01,
                                                 min_lr=0.00001)
-    checkpoint = ModelCheckpoint(best_model_path, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+    checkpoint = ModelCheckpoint(best_model_path, monitor='val_accuracy', verbose=1, save_best_only=True, mode='max')
 
     R, C = train_x.shape
     network = Activation('relu')(cnn)
@@ -188,10 +187,10 @@ if __name__ == '__main__':
     model = Model(inputs=inputs, outputs=out)
 
     print("lr=0.00001, beta_1=0.9, beta_2=0.999, amsgrad=False")
-    nadam = keras.optimizers.Nadam(lr=0.002, beta_1=0.9, beta_2=0.999)
-    adam = keras.optimizers.Adam(lr=0.00001, beta_1=0.9, beta_2=0.999, amsgrad=False)
+    nadam = keras.optimizers.Nadam(learning_rate=0.002, beta_1=0.9, beta_2=0.999)
+    adam = keras.optimizers.Adam(learning_rate=0.00001, beta_1=0.9, beta_2=0.999, amsgrad=False)
     y_true = np.argmax(train_y, axis=1)
-    class_weights = class_weight.compute_class_weight('balanced', np.unique(y_true), y_true)
+    class_weights = class_weight.compute_class_weight(class_weight='balanced', classes=np.unique(y_true), y=y_true)
     d_class_weights = dict(enumerate(class_weights))
     model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
 

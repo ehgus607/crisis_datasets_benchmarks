@@ -376,7 +376,7 @@ def addAllnonempty(master, smaller):
 
 # "foo   bar " => "foo bar"
 def squeezeWhitespace(input):
-    input = input.decode('utf-8').strip()
+    input = input.strip()
     return Whitespace.sub(" ", input).strip()
 
 

@@ -1,3 +1,42 @@
+# For DeepSick
+
+## Environment setting
+Base on Ubuntu 20.04
+```
+sudo apt-get install python3
+```
+```
+sudo apt-get install python3-pip
+```
+```
+sudo apt-get install python3-dev
+```
+
+```
+pip3 install -r requirements
+```
+
+
+## Training
+
+```
+CUDA_VISIBLE_DEVICES=1 python bin/text_cnn_pipeline_unimodal.py -i data/all_events_en/crisis_consolidated_informativeness_filtered_lang_en_train.tsv \
+-v data/all_events_en/crisis_consolidated_informativeness_filtered_lang_en_dev.tsv -t data/all_events_en/crisis_consolidated_informativeness_filtered_lang_en_test.tsv \
+--log_file checkpoint_log/informativeness_cnn.txt --w2v_checkpoint w2v_models/data_w2v_info_cnn.model -m models/informativeness_cnn.model -l labeled/informativeness_labeled_cnn.tsv \
+-o results/informativeness_results_cnn.txt >&log/text_info_cnn.txt
+```
+
+
+
+
+
+
+
+
+
+
+
+
 # CrisisBench: Crisis Dataset for Benchmarks
 
 The **CrisisBench** dataset consists data from several different data sources such as CrisisLex (CrisisLex26, CrisisLex6), CrisisNLP, SWDM2013, ISCRAM13, Disaster Response Data (DRD), Disasters on Social Media (DSM), CrisisMMD and data from AIDR. The purpose of this work was to map the class label, remove duplicates and provide a benchmark results for the community. More details of this dataset can be found in our work [CrisisBench: Benchmarking Crisis-related Social Media Datasets for Humanitarian Information Processing](https://ojs.aaai.org/index.php/ICWSM/article/view/18115)

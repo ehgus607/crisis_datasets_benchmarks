@@ -12,7 +12,7 @@ np.random.seed(1337)  # for reproducibility
 import os
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
-from keras.utils.np_utils import to_categorical
+from keras.utils import to_categorical
 import sys
 from sklearn import preprocessing
 import pandas as pd
@@ -74,7 +74,7 @@ def read_train_data(dataFile, MAX_NB_WORDS, MAX_SEQUENCE_LENGTH, delim):
                 if w not in stop_words:
                     try:
                         #w=str(w.encode('ascii'))
-                        w_list.append(w.encode('utf-8'))
+                        w_list.append(w)
                     except Exception as e:
                         print(w)
                         pass
@@ -93,7 +93,7 @@ def read_train_data(dataFile, MAX_NB_WORDS, MAX_SEQUENCE_LENGTH, delim):
 
     data_shuf = []
     lab_shuf = []
-    index_shuf = range(len(data))
+    index_shuf = list(range(len(data)))
     random.shuffle(index_shuf)
     for i in index_shuf:
         data_shuf.append(data[i])
@@ -154,7 +154,7 @@ def read_dev_data(dataFile, tokenizer, MAX_SEQUENCE_LENGTH, delim, train_le):
                 if w not in stop_words:
                     try:
                         #w=str(w.encode('ascii'))
-                        w_list.append(w.encode('utf-8'))
+                        w_list.append(w)
                     except Exception as e:
                         #print(w)
                         #print(e)
